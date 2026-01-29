@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: jiralite-postgres
+    restart: always
+
+    environment:
+      POSTGRES_DB: jiralite
+      POSTGRES_USER: jiralite
+      POSTGRES_PASSWORD: jiralite123
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - jiralite_pg_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jiralite -d jiralite"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  jiralite_pg_data:
