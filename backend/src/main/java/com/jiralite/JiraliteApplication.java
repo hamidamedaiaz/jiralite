@@ -1,4 +1,4 @@
-package com.jiralite.jiralite;
+package com.jiralite;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
