@@ -1,0 +1,10 @@
+{
+  "name": "jiralite-frontend",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "echo \"Placeholder frontend. Replace with real app.\" && exit 0",
+    "build": "echo \"No build configured.\" && exit 0"
+  }
+}
+
