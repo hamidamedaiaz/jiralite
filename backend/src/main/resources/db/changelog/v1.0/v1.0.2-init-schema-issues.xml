@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="v1.0.2-create-issues" author="amid">
+        <createTable tableName="issues">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="status" type="VARCHAR(20)" defaultValue="TODO"/>
+            <column name="priority" type="VARCHAR(20)" defaultValue="MEDIUM"/>
+            <column name="project_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="assignee_id" type="BIGINT"/>
+            <column name="reporter_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="issues"
+                baseColumnNames="project_id"
+                referencedTableName="projects"
+                referencedColumnNames="id"
+                constraintName="fk_issue_project"
+                onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+                baseTableName="issues"
+                baseColumnNames="assignee_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_issue_assignee"
+                onDelete="SET NULL"/>
+
+        <addForeignKeyConstraint
+                baseTableName="issues"
+                baseColumnNames="reporter_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_issue_reporter"
+                onDelete="CASCADE"/>
+    </changeSet>
+
+</databaseChangeLog>
