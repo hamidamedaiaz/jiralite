@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="v1.0.3-seed-users" author="amid">
+        <insert tableName="users">
+            <column name="username" value="admin"/>
+            <column name="email" value="admin@jiralite.com"/>
+            <column name="password" value="password123"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="developer"/>
+            <column name="email" value="dev@jiralite.com"/>
+            <column name="password" value="password123"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="v1.0.3-seed-projects" author="amid">
+        <insert tableName="projects">
+            <column name="name" value="JiraLite Development"/>
+            <column name="description" value="Main development project"/>
+            <column name="owner_id" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="v1.0.3-seed-issues" author="amid">
+        <insert tableName="issues">
+            <column name="title" value="Setup Liquibase"/>
+            <column name="description" value="Configure database migrations"/>
+            <column name="status" value="IN_PROGRESS"/>
+            <column name="priority" value="HIGH"/>
+            <column name="project_id" valueNumeric="1"/>
+            <column name="assignee_id" valueNumeric="1"/>
+            <column name="reporter_id" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
