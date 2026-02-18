@@ -1,27 +1,36 @@
-version: "3.9"
-
 services:
   postgres:
     image: postgres:16
     container_name: jiralite-postgres
     restart: always
-
     environment:
       POSTGRES_DB: jiralite
       POSTGRES_USER: jiralite
       POSTGRES_PASSWORD: jiralite123
-
     ports:
       - "5433:5432"
-
     volumes:
       - jiralite_pg_data:/var/lib/postgresql/data
-
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U jiralite -d jiralite"]
       interval: 10s
       timeout: 5s
       retries: 5
+
+  app:
+    image: jiralite-app
+    container_name: jiralite-app
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/jiralite
+      SPRING_DATASOURCE_USERNAME: jiralite
+      SPRING_DATASOURCE_PASSWORD: jiralite123
+      JWT_SECRET: my-very-strong-secret-key-which-is-32-bytes!!
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   jiralite_pg_data:
