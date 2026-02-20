@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone') {
+            steps {
+                git 'https://github.com/hamidamedaiaz/jiralite.git'
+            }
+        }
+        stage('Build & Deploy') {
+            steps {
+                sh '''
+                    cd backend
+                    docker compose up -d --build
+                '''
+            }
+        }
+    }
+}
