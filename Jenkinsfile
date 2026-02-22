@@ -11,7 +11,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                    sh 'chmod +x backend/mvnw'
+                sh 'chmod +x backend/mvnw'
                 sh 'cd backend && ./mvnw clean package -DskipTests'
             }
         }
@@ -27,7 +27,10 @@ pipeline {
                 branch 'main'
             }
             steps {
-                sh 'cd backend && docker-compose up -d --build'
+                sh '''
+                    cd backend
+                    docker-compose up -d --build
+                '''
             }
         }
     }
@@ -41,4 +44,3 @@ pipeline {
         }
     }
 }
-
