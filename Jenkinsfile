@@ -27,7 +27,7 @@ pipeline {
                 branch 'main'
             }
             steps {
-                sh 'cd backend && docker compose up -d --build'
+                sh 'cd backend && docker-compose up -d --build'
             }
         }
     }
