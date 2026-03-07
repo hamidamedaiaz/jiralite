@@ -1,0 +1,51 @@
+<div class="register-container">
+  <h2>Create your account</h2>
+
+  <!-- Succès 201 -->
+  <div class="success-box" *ngIf="successResponse">
+    <h3>Account created!</h3>
+    <p><strong>ID:</strong> {{ successResponse.id }}</p>
+    <p><strong>Username:</strong> {{ successResponse.username }}</p>
+    <p><strong>Email:</strong> {{ successResponse.email }}</p>
+    <p><strong>Role:</strong> {{ successResponse.role }}</p>
+    <p><strong>Created at:</strong> {{ successResponse.createdAt }}</p>
+  </div>
+
+  <!-- Erreur 409 -->
+  <div class="error-box" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Formulaire -->
+  <form (ngSubmit)="onSubmit()" *ngIf="!successResponse">
+
+    <div class="field">
+      <label for="username">Username</label>
+      <input id="username" type="text" [(ngModel)]="username" name="username" required />
+      <span class="field-error" *ngIf="validationErrors['username']">
+        {{ validationErrors['username'] }}
+      </span>
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input id="email" type="email" [(ngModel)]="email" name="email" required />
+      <span class="field-error" *ngIf="validationErrors['email']">
+        {{ validationErrors['email'] }}
+      </span>
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input id="password" type="password" [(ngModel)]="password" name="password" required />
+      <span class="field-error" *ngIf="validationErrors['password']">
+        {{ validationErrors['password'] }}
+      </span>
+    </div>
+
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Registering...' : 'Register' }}
+    </button>
+
+  </form>
+</div>
